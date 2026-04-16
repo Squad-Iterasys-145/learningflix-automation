@@ -6,10 +6,19 @@ Given('que acesso a página de login', async function () {
   await this.loginPage.navigate();
 });
 
+// Step para Administrador
 When('preencho o username e password de administrador', async function () {
   await this.loginPage.login(
     process.env.ADMIN_USERNAME,
     process.env.ADMIN_PASSWORD
+  );
+});
+
+// Step para Administrador Cliente
+When('preencho o username e password de administrador cliente', async function () {
+  await this.loginPage.login(
+    process.env.CLIENT_USERNAME,
+    process.env.CLIENT_PASSWORD
   );
 });
 
