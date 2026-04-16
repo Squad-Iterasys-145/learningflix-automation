@@ -5,7 +5,7 @@ require('dotenv').config();
 setDefaultTimeout(60000); 
 
 Before(async function () {
-  this.browser = await chromium.launch({ headless: false });
+  this.browser = await chromium.launch({ headless: true });
   this.page = await this.browser.newPage();
 });
 
