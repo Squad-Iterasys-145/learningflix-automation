@@ -2,11 +2,14 @@ const { Before, After, setDefaultTimeout } = require('@cucumber/cucumber');
 const { chromium } = require('playwright');
 require('dotenv').config();
 
-setDefaultTimeout(60000); 
+setDefaultTimeout(60000);
 
 Before(async function () {
   this.browser = await chromium.launch({ headless: true });
-  this.page = await this.browser.newPage();
+  const context = await this.browser.newContext({
+    locale: 'en-US'
+  });
+  this.page = await context.newPage();
 });
 
 After(async function () {

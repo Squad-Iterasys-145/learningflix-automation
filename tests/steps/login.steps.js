@@ -6,7 +6,6 @@ Given('que acesso a página de login', async function () {
   await this.loginPage.navigate();
 });
 
-// Step para Administrador
 When('preencho o username e password de administrador', async function () {
   await this.loginPage.login(
     process.env.ADMIN_USERNAME,
@@ -14,7 +13,6 @@ When('preencho o username e password de administrador', async function () {
   );
 });
 
-// Step para Administrador Cliente
 When('preencho o username e password de administrador cliente', async function () {
   await this.loginPage.login(
     process.env.CLIENT_USERNAME,
@@ -23,10 +21,10 @@ When('preencho o username e password de administrador cliente', async function (
 });
 
 When('clico no botão de login', async function () {
-  // já está dentro do método login
+  await this.loginPage.btnlogin();
 });
 
 Then('devo ver a página inicial', async function () {
-  // validação básica (depois melhoramos)
   await this.page.waitForLoadState('networkidle');
+  await this.page.waitForURL('**/my/**');
 });
