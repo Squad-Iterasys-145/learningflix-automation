@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "playwright.config.js",
   "scripts": {
-    "test": "cucumber-js tests/features --require tests/steps --require tests/hooks"
+    "test": "cucumber-js"
   },
   "keywords": [],
   "author": "",
@@ -13,8 +13,9 @@
     "@playwright/test": "^1.59.1",
     "@types/node": "^25.6.0"
   },
-  "dependencies": {
+    "dependencies": {
     "@cucumber/cucumber": "^12.8.1",
-    "dotenv": "^17.4.2"
+    "dotenv": "^17.4.2",
+    "playwright": "^1.59.1"
   }
 }

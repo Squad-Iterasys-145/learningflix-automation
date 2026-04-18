@@ -13,11 +13,18 @@ When('preencho o username e password de administrador', async function () {
   );
 });
 
+When('preencho o username e password de administrador cliente', async function () {
+  await this.loginPage.login(
+    process.env.CLIENT_USERNAME,
+    process.env.CLIENT_PASSWORD
+  );
+});
+
 When('clico no botão de login', async function () {
-  // já está dentro do método login
+  await this.loginPage.btnlogin();
 });
 
 Then('devo ver a página inicial', async function () {
-  // validação básica (depois melhoramos)
   await this.page.waitForLoadState('networkidle');
+  await this.page.waitForURL('**/my/**');
 });
