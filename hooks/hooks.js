@@ -5,10 +5,16 @@ import { chromium } from 'playwright'
 setDefaultTimeout(60000); 
 
 Before(async function () {
-  this.browser = await chromium.launch({ headless: false });
+  this.browser = await chromium.launch({
+    headless: false,
+    slowMo: 50
+  });
+
   this.page = await this.browser.newPage();
 });
 
 After(async function () {
-  await this.browser.close();
+  if (this.browser) {
+    await this.browser.close();
+  }
 });
