@@ -18,4 +18,4 @@ class AdminPage {
     }
 }
 
-module.exports = {AdminPage}
+module.exports = AdminPage
