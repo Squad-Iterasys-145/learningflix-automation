@@ -1,8 +1,8 @@
 const { Given, When, Then } = require('@cucumber/cucumber')
-const { LoginPage } = require('../../pages/LoginPage')
-const { HomePage } = require('../../pages/HomePage')
-const { AdminPage } = require('../../pages/AdminPage')
-const { ThemePage } = require('../../pages/ThemePage')
+const LoginPage = require('../../pages/LoginPage')
+const HomePage = require('../../pages/HomePage')
+const AdminPage = require('../../pages/AdminPage')
+const ThemePage = require('../../pages/ThemePage')
 
 Given('que estou logado como {string}', async function (usuario) {
     this.usuarioAtual = usuario; // Guarda o tipo de usuário para usar depois
@@ -11,7 +11,6 @@ Given('que estou logado como {string}', async function (usuario) {
     this.loginPage = new LoginPage(this.page);
     await this.loginPage.navigate();
 
-    // Lógica para decidir qual variável do .env usar
     let username, password;
 
     if (usuario === 'admin') {
@@ -33,7 +32,7 @@ When('acesso o Gerenciamento de Temas', async function () {
     await this.adminPage.acessarGerenciamentoTemas(this.usuarioAtual);
 });
 
-When('clico em Editar na variante desejada', async function () {
+When('clico em Editar a variante desejada', async function () {
     //ESTRATÉGIA: Usar temas diferentes para cada usuário evita conflitos de 
     this.themePage = new ThemePage(this.page)
     const nomeTema = this.usuarioAtual === 'admin' ? 'AdminLogo' : 'ClienteLogo'; 
