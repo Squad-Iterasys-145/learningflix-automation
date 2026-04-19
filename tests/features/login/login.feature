@@ -1,3 +1,4 @@
+@login
 Feature: Login na plataforma
 
   Scenario: Login com administrador
