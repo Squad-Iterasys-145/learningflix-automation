@@ -1,72 +1,111 @@
 [
   {
-    "description": "",
+    "description": "  Como Administrador\n  Quero tornar um tema padrão\n  Para que seja aplicado a usuários sem tema definido",
     "elements": [
       {
         "description": "",
-        "id": "login-na-plataforma;login-com-administrador",
+        "id": "tornar-tema-padrão;tornar-tema-padrão-com-sucesso",
         "keyword": "Scenario",
-        "line": 3,
-        "name": "Login com administrador",
+        "line": 7,
+        "name": "Tornar tema padrão com sucesso",
         "steps": [
           {
             "keyword": "Before",
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 748702200
+              "duration": 978206600
             }
           },
           {
             "arguments": [],
             "keyword": "Given ",
-            "line": 4,
-            "name": "que acesso a página de login",
+            "line": 8,
+            "name": "que estou logado como Administrador",
             "match": {
-              "location": "tests\\steps\\login.steps.js:4"
+              "location": "tests\\steps\\criar_tema.steps.js:6"
             },
             "result": {
               "status": "passed",
-              "duration": 3714452100
+              "duration": 11592770199
             }
           },
           {
             "arguments": [],
             "keyword": "When ",
-            "line": 5,
-            "name": "preencho o username e password de administrador",
+            "line": 9,
+            "name": "clico em Administração do site",
             "match": {
-              "location": "tests\\steps\\login.steps.js:9"
+              "location": "tests\\steps\\criar_tema.steps.js:18"
             },
             "result": {
               "status": "passed",
-              "duration": 256472000
+              "duration": 3568735099
             }
           },
           {
             "arguments": [],
             "keyword": "And ",
-            "line": 6,
-            "name": "clico no botão de login",
+            "line": 10,
+            "name": "clico na aba Aparência",
             "match": {
-              "location": "tests\\steps\\login.steps.js:23"
+              "location": "tests\\steps\\criar_tema.steps.js:24"
             },
             "result": {
               "status": "passed",
-              "duration": 4566750199
+              "duration": 1099252700
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 11,
+            "name": "clico em Gerenciamento de Temas",
+            "match": {
+              "location": "tests\\steps\\criar_tema.steps.js:29"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 2205389699
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 12,
+            "name": "clico no menu de ações do card do tema \"Treinamento Thamires\"",
+            "match": {
+              "location": "tests\\steps\\tornar_padra.steps.js:3"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1074050499
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 13,
+            "name": "clico em Tornar o tema padrão",
+            "match": {
+              "location": "tests\\steps\\tornar_padra.steps.js:11"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1060270499
             }
           },
           {
             "arguments": [],
             "keyword": "Then ",
-            "line": 7,
-            "name": "devo ver a página inicial",
+            "line": 14,
+            "name": "o tema \"Treinamento Thamires\" está marcado como padrão",
             "match": {
-              "location": "tests\\steps\\login.steps.js:27"
+              "location": "tests\\steps\\tornar_padra.steps.js:16"
             },
             "result": {
               "status": "passed",
-              "duration": 16374062400
+              "duration": 18159599
             }
           },
           {
@@ -74,19 +113,37 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 585213799
+              "duration": 571589900
             }
           }
         ],
-        "tags": [],
+        "tags": [
+          {
+            "name": "@variantes_tema",
+            "line": 1
+          },
+          {
+            "name": "@tornar_padrao",
+            "line": 1
+          }
+        ],
         "type": "scenario"
       }
     ],
-    "id": "login-na-plataforma",
-    "line": 1,
+    "id": "tornar-tema-padrão",
+    "line": 2,
     "keyword": "Feature",
-    "name": "Login na plataforma",
-    "tags": [],
-    "uri": "tests\\features\\login.feature"
+    "name": "Tornar tema padrão",
+    "tags": [
+      {
+        "name": "@variantes_tema",
+        "line": 1
+      },
+      {
+        "name": "@tornar_padrao",
+        "line": 1
+      }
+    ],
+    "uri": "tests\\features\\variantes_tema\\tornar_padrao.feature"
   }
 ]
