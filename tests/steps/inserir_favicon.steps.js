@@ -4,13 +4,14 @@ const HomePage = require('../../pages/HomePage')
 const AdminPage = require('../../pages/AdminPage')
 const ThemePage = require('../../pages/ThemePage')
 
-Given('que estou logado como {string}', async function (usuario) {
+Given('que estou logado no {string}', async function (usuario) {
     this.usuarioAtual = usuario; // Guarda o tipo de usuário para usar depois
 
     this.usuarioAtual = usuario;
     this.loginPage = new LoginPage(this.page);
     await this.loginPage.navigate();
 
+    // Lógica para decidir qual variável do .env usar
     let username, password;
 
     if (usuario === 'admin') {
@@ -25,29 +26,30 @@ Given('que estou logado como {string}', async function (usuario) {
     await this.loginPage.btnlogin();
 });
 
-When('acesso o Gerenciamento de Temas', async function () {
+When('acesso a pagina Gerenciamento de Temas', async function () {
     this.homePage = new HomePage(this.page);
     this.adminPage = new AdminPage(this.page);
     await this.homePage.admsite();
     await this.adminPage.acessarGerenciamentoTemas(this.usuarioAtual);
 });
 
-When('clico em Editar a variante desejada', async function () {
+When('clico em Editar na variante desejada', async function () {
     //ESTRATÉGIA: Usar temas diferentes para cada usuário evita conflitos de 
     this.themePage = new ThemePage(this.page)
     const nomeTema = this.usuarioAtual === 'admin' ? 'AdminLogo' : 'ClienteLogo'; 
     await this.themePage.acessarEdicaoVariante(nomeTema);
 });
 
-When('localizo o campo Logo e faço upload do arquivo', async function () {
-    await this.themePage.realizarUploadLogo('qa.jpeg');
+When('localizo o campo Favicon e faço upload do arquivo', async function () {
+    this.themePage = new ThemePage(this.page)
+    await this.themePage.realizarUploadFavicon('cli.jpeg');
 });
 
-When('clico em Salvar', async function () {
+When('clico no botao Salvar', async function () {
     await this.themePage.salvarConfiguracoes();
 });
 
-Then('o logo é salvo com sucesso', async function () {
+Then('a favicon é salva com sucesso', async function () {
     // Aqui você pode adicionar um assert se desejar verificar a mensagem de sucesso
     // await expect(this.page.locator('.alert-success')).toBeVisible();
 });
