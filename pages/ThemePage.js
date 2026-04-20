@@ -4,7 +4,8 @@ class ThemePage {
         // Locators dinâmicos
         this.containerTema = (nome) => page.locator('.card-body').filter({ hasText: nome })
         this.botaoOpcoesDoTema = (nome) => this.containerTema(nome).locator('#dropdownMenuButton')
-        this.linkEditar = page.getByRole('menuitem', { name: 'Editar' });
+        this.linkVisualizar = page.getByRole('menuitem', {name: 'Pré-visualizar'})
+        this.linkEditar = page.getByRole('menuitem', { name: 'Editar' })
 
         // Upload Logo
         this.botaoAbrirUploadLogo = page.locator('fieldset[id*="logoimagefile"]').getByRole('button', { name: 'Adicionar...' })
@@ -22,40 +23,48 @@ class ThemePage {
     }
 
     async acessarEdicaoVariante(nomeDoTema) {
-        await this.botaoOpcoesDoTema(nomeDoTema).click();
-        await this.linkEditar.waitFor({ state: 'visible' });
-        await this.linkEditar.click();
+        await this.botaoOpcoesDoTema(nomeDoTema).click()
+        await this.linkEditar.waitFor({ state: 'visible' })
+        await this.linkEditar.click()
+    }
+
+    async acessarPreVisualizacao(nomeDoTema) {
+        await this.botaoOpcoesDoTema(nomeDoTema).click()
+        await this.linkVisualizar.waitFor({ state: 'visible'})
+        await this.linkVisualizar.click()
     }
 
     async realizarUploadLogo(nomeArquivo) {
-        const caminho = `./data/${nomeArquivo}`;
-        await this.botaoAbrirUploadLogo.click();
+        const caminho = `./data/${nomeArquivo}`
+        await this.botaoAbrirUploadLogo.click()
         
-        const inputFinal = this.page.locator('input[name="repo_upload_file"]');
-        await inputFinal.setInputFiles(caminho);
-
+        const inputFinal = this.page.locator('input[name="repo_upload_file"]')
+        await inputFinal.setInputFiles(caminho)
         await this.botaoEnviarArquivo.click();
-        await this.botaoEnviarArquivo.waitFor({ state: 'hidden' });
-        await this.page.waitForTimeout(1000);
+        await this.botaoEnviarArquivo.waitFor({ state: 'hidden' })
+        await this.page.waitForTimeout(1000)
     }
 
     async realizarUploadFavicon(nomeArquivo) {
-        const caminho = `./data/${nomeArquivo}`;
-        // await this.botaoAbrirUploadFav.scrollIntoViewIfNeeded()
-        // await this.botaoAbrirUploadFav.waitFor({ state: 'visible' });
-        await this.botaoAbrirUploadFav.click();
+        const caminho = `./data/${nomeArquivo}`
+        await this.botaoAbrirUploadFav.click()
         
-        const inputFinal = this.page.locator('input[name="repo_upload_file"]');
-        await inputFinal.setInputFiles(caminho);
+        const inputFinal = this.page.locator('input[name="repo_upload_file"]')
+        await inputFinal.setInputFiles(caminho)
 
-        await this.botaoEnviarArquivo.click();
-        await this.botaoEnviarArquivo.waitFor({ state: 'hidden' });
-        await this.page.waitForTimeout(1000);
+        await this.botaoEnviarArquivo.click()
+        await this.botaoEnviarArquivo.waitFor({ state: 'hidden' })
+        await this.page.waitForTimeout(1000)
     }
 
     async salvarConfiguracoes() {
-        // O force: true mata o problema da máscara (lightbox)
-        await this.botaoSalvarTema.click({ force: true });
+        await this.botaoSalvarTema.click({ force: true })
+    }
+
+    async validarLogoPreview() {
+        const previewFrame = this.page.frameLocator('iframe').first();
+        const logo = previewFrame.locator('img.logo').filter({ visible: true }).first()
+        return logo
     }
 
 
