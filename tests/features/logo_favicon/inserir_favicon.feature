@@ -3,11 +3,11 @@
 Feature: Inserir favicon em variante
 
   Scenario Outline: Upload de Favicon em variante com sucesso
-    Given que estou logado no "<usuario>"
-    When acesso a pagina Gerenciamento de Temas
-    And clico em Editar na variante desejada
+    Given que estou logado como "<usuario>"
+    When acesso o Gerenciamento de Temas
+    And clico em Editar a variante desejada
     And localizo o campo Favicon e faço upload do arquivo
-    And clico no botao Salvar
+    And clico em Salvar
     Then a favicon é salva com sucesso
 
     Examples:
