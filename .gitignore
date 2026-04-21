@@ -2,7 +2,7 @@ node_modules
 .env
 playwright-report
 test-results
-
+reports/
 # Playwright
 /playwright-report/
 /blob-report/

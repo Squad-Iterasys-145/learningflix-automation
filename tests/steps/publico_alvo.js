@@ -1,10 +1,10 @@
-import { Given, When, Then } from '@cucumber/cucumber';
-import { expect } from '@playwright/test';
+const { Given, When, Then } = require('@cucumber/cucumber');
+const { expect } = require('@playwright/test');
 
-import { LoginPage } from '../../pages/LoginPage.js';
-import { HomePage } from '../../pages/HomePage.js';
-import { AdminPage } from '../../pages/AdmPage.js';
-import { PublicoAlvoPage } from '../../pages/PublicoAlvoPage.js';
+const { LoginPage } = require('../../pages/LoginPage');
+const { HomePage } = require('../../pages/HomePage');
+const { AdminPage } = require('../../pages/AdmPage');
+const { PublicoAlvoPage } = require('../../pages/PublicoAlvoPage');
 
 Given('que estou logado como {string}', async function (tipoUsuario) {
   this.userType = tipoUsuario;
