@@ -1,10 +1,10 @@
 const { When, Then } = require('@cucumber/cucumber')
 
 When('clico no menu de ações do card do tema {string}', async function (temaName) {
-     await this.page.locator('[data-themeid]')
-        .filter({ has: this.page.locator('h5.card-title', { hasText: temaName }) })
-        .locator('#dropdownMenuButton')
-        .click()
+    await this.page.waitForLoadState('networkidle')
+    const card = this.page.locator('[data-themeid]')
+    .filter({ has: this.page.locator('h5.card-title', { hasText: temaName }) })
+    await card.locator('button[data-toggle="dropdown"]').click()
 })
 
 When('clico em Tornar o tema padrão', async function () {
