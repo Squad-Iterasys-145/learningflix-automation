@@ -5,11 +5,11 @@ const AdminPage = require('../../pages/AdminPage')
 const ThemePage = require('../../pages/ThemePage')
 
 Given('que estou logado como {string}', async function (usuario) {
-    this.usuarioAtual = usuario; // Guarda o tipo de usuário para usar depois
+    this.usuarioAtual = usuario // Guarda o tipo de usuário para usar depois
 
-    this.usuarioAtual = usuario;
-    this.loginPage = new LoginPage(this.page);
-    await this.loginPage.navigate();
+    this.usuarioAtual = usuario
+    this.loginPage = new LoginPage(this.page)
+    await this.loginPage.navigate()
 
     let username, password;
 
@@ -21,16 +21,15 @@ Given('que estou logado como {string}', async function (usuario) {
         password = process.env.CLIENT_PASSWORD;
     }
 
-    await this.loginPage.login(username, password);
-    await this.loginPage.btnlogin();
+    await this.loginPage.login(username, password)
+    await this.loginPage.btnlogin()
 });
 
 When('acesso o Gerenciamento de Temas', async function () {
-    this.homePage = new HomePage(this.page);
-    this.adminPage = new AdminPage(this.page);
-    //await this.homePage.admsite(); alteração recomendada
-    this.homePage.acessarAdmin()
-    await this.adminPage.acessarGerenciamentoTemas(this.usuarioAtual);
+    this.homePage = new HomePage(this.page)
+    this.adminPage = new AdminPage(this.page)
+    await this.homePage.admsite()
+    await this.adminPage.acessarGerenciamentoTemas(this.usuarioAtual)
 });
 
 When('clico em Editar a variante desejada', async function () {
@@ -40,6 +39,6 @@ When('clico em Editar a variante desejada', async function () {
 });
 
 When('clico em Salvar', async function () {
-    await this.themePage.salvarConfiguracoes();
+    await this.themePage.salvarConfiguracoes()
 });
 

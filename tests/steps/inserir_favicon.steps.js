@@ -11,6 +11,16 @@ When('localizo o campo Favicon e faço upload do arquivo', async function () {
 });
 
 Then('a favicon é salva com sucesso', async function () {
-    // adicionar um assert para verificar a mensagem de sucesso
-    // await expect(this.page.locator('.alert-success')).toBeVisible();
+    //acessar o tema bucar pelo upload e deletar o arquivo
+    const nomeTema =
+      this.usuarioAtual === 'admin'
+        ? 'AdminLogo'
+        : 'ClienteLogo'
+
+    await this.themePage.acessarEdicaoVariante(nomeTema);
+
+    await this.themePage.removerFavicon()
+
+    await this.themePage.salvarConfiguracoes()
+
 })
