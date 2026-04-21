@@ -28,7 +28,8 @@ Given('que estou logado como {string}', async function (usuario) {
 When('acesso o Gerenciamento de Temas', async function () {
     this.homePage = new HomePage(this.page);
     this.adminPage = new AdminPage(this.page);
-    await this.homePage.admsite();
+    //await this.homePage.admsite(); alteração recomendada
+    this.homePage.acessarAdmin()
     await this.adminPage.acessarGerenciamentoTemas(this.usuarioAtual);
 });
 

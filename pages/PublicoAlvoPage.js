@@ -1,4 +1,4 @@
-export class PublicoAlvoPage { 
+class PublicoAlvoPage { 
 
   constructor(page) { 
 
@@ -116,4 +116,4 @@ export class PublicoAlvoPage {
 
 } 
 
- 
+module.exports = PublicoAlvoPage 

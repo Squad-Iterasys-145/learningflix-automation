@@ -1,4 +1,4 @@
-export class LoginPage {
+class LoginPage {
   constructor(page) {
     this.page = page;
     this.usernameInput = page.locator('#username');
@@ -19,3 +19,5 @@ export class LoginPage {
     await this.loginButton.click();
   }
 }
+
+module.exports = LoginPage
