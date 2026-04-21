@@ -2,8 +2,8 @@ node_modules
 .env
 playwright-report
 test-results
-reports/cucumber-report.json
-reports/screenshots/*.png
+
+reports/
 
 # Playwright
 /playwright-report/
