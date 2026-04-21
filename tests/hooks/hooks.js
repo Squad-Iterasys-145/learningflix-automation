@@ -11,12 +11,20 @@ dotenv.config({
 setDefaultTimeout(120000);
 
 Before(async function () {
+<<<<<<< HEAD
   console.log("BASE_URL HOOK:", process.env.BASE_URL);
 
   this.browser = await chromium.launch({ headless: false });
 
+=======
+  this.browser = await chromium.launch({
+     headless: true,
+     //slowMo: 1000
+      });
+>>>>>>> 7edcc2f252535db1a1a949c87eedc79ade22bfb6
   const context = await this.browser.newContext({
-    locale: 'en-US'
+    locale: 'en-US',
+    storageState: undefined 
   });
 
   this.page = await context.newPage();

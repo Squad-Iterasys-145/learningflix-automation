@@ -1,6 +1,6 @@
 const { Given, When, Then } = require('@cucumber/cucumber')
 const LoginPage = require('../../pages/LoginPage')
-const { time } = require('node:console')
+const { time } = require('node:console') 
 const { title } = require('node:process')
 
 Given('que estou logado como Administrador', async function () {
@@ -14,10 +14,12 @@ Given('que estou logado como Administrador', async function () {
     await this.page.waitForURL('**/my/**')
 })
 
+
 When('clico em Administração do site', async function () {
     await this.page.locator('a[href*="admin/search.php"]').first().click()
     await this.page.waitForURL('**/admin/**', {timeout: 15000})
 })
+
 
 When('clico na aba Aparência', async function () {
     await this.page.getByRole('tab', { name: 'Aparência' }).click()
@@ -28,6 +30,7 @@ When('clico em Gerenciamento de Temas', async function () {
     await this.page.getByRole('link', { name: 'Gerenciamento de Temas' }).click()
     await this.page.waitForLoadState('networkidle')
 })
+
 
 When('clico em Adicionar novo tema', async function () {
     await this.page.getByRole('button', { name: 'Adicionar novo tema' }).click()
