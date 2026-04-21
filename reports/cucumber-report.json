@@ -1,20 +1,20 @@
 [
   {
-    "description": "  Como Administrador\n  Quero tornar um tema padrão\n  Para que seja aplicado a usuários sem tema definido",
+    "description": "  Como Administrador\n  Quero excluir um tema\n  Para remover temas desnecessários da plataforma",
     "elements": [
       {
         "description": "",
-        "id": "tornar-tema-padrão;tornar-tema-padrão-com-sucesso",
+        "id": "excluir-tema;excluir-tema-com-sucesso",
         "keyword": "Scenario",
-        "line": 7,
-        "name": "Tornar tema padrão com sucesso",
+        "line": 17,
+        "name": "Excluir tema com sucesso",
         "steps": [
           {
             "keyword": "Before",
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 1081955000
+              "duration": 1726408800
             }
           },
           {
@@ -27,7 +27,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 12358793800
+              "duration": 12553005400
             }
           },
           {
@@ -40,7 +40,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 8659194599
+              "duration": 4893327300
             }
           },
           {
@@ -53,7 +53,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 1154141299
+              "duration": 1127405500
             }
           },
           {
@@ -66,46 +66,124 @@
             },
             "result": {
               "status": "passed",
-              "duration": 2869468600
+              "duration": 3463233100
             }
           },
           {
             "arguments": [],
             "keyword": "And ",
             "line": 12,
-            "name": "clico no menu de ações do card do tema \"Treinamento Thamires\"",
+            "name": "clico em Adicionar novo tema",
             "match": {
-              "location": "tests\\steps\\tornar_padrao.steps.js:3"
+              "location": "tests\\steps\\criar_tema.steps.js:35"
             },
             "result": {
               "status": "passed",
-              "duration": 1111081799
+              "duration": 1073354899
             }
           },
           {
             "arguments": [],
             "keyword": "And ",
             "line": 13,
-            "name": "clico em Tornar o tema padrão",
+            "name": "clico no botão Adicionar",
             "match": {
-              "location": "tests\\steps\\tornar_padrao.steps.js:10"
+              "location": "tests\\steps\\criar_tema.steps.js:40"
             },
             "result": {
               "status": "passed",
-              "duration": 1054419499
+              "duration": 1072710399
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 14,
+            "name": "limpo e preencho o campo \"Nome do tema\" com \"Automação Thamires\"",
+            "match": {
+              "location": "tests\\steps\\criar_tema.steps.js:45"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 2904350299
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 15,
+            "name": "clico em Salvar mudanças",
+            "match": {
+              "location": "tests\\steps\\criar_tema.steps.js:56"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 2238484100
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 18,
+            "name": "clico no menu de ações do card do tema \"Automação Thamires\"",
+            "match": {
+              "location": "tests\\steps\\tornar_padrao.steps.js:3"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1930114099
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 19,
+            "name": "clico em Excluir",
+            "match": {
+              "location": "tests\\steps\\excluir_tema.steps.js:3"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1028365600
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 20,
+            "name": "confirmo a exclusão",
+            "match": {
+              "location": "tests\\steps\\excluir_tema.steps.js:8"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1072053799
             }
           },
           {
             "arguments": [],
             "keyword": "Then ",
-            "line": 14,
-            "name": "o tema \"Treinamento Thamires\" está marcado como padrão",
+            "line": 21,
+            "name": "o sistema exibe a mensagem \"O tema foi excluído com sucesso!\"",
             "match": {
-              "location": "tests\\steps\\tornar_padrao.steps.js:15"
+              "location": "tests\\steps\\criar_tema.steps.js:67"
             },
             "result": {
               "status": "passed",
-              "duration": 23126800
+              "duration": 15146799
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 22,
+            "name": "o tema \"Automação Thamires\" não aparece na listagem",
+            "match": {
+              "location": "tests\\steps\\excluir_tema.steps.js:13"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 10893299
             }
           },
           {
@@ -113,7 +191,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 951990900
+              "duration": 481567699
             }
           }
         ],
@@ -123,27 +201,27 @@
             "line": 1
           },
           {
-            "name": "@tornar_padrao",
+            "name": "@excluir_tema",
             "line": 1
           }
         ],
         "type": "scenario"
       }
     ],
-    "id": "tornar-tema-padrão",
+    "id": "excluir-tema",
     "line": 2,
     "keyword": "Feature",
-    "name": "Tornar tema padrão",
+    "name": "Excluir tema",
     "tags": [
       {
         "name": "@variantes_tema",
         "line": 1
       },
       {
-        "name": "@tornar_padrao",
+        "name": "@excluir_tema",
         "line": 1
       }
     ],
-    "uri": "tests\\features\\variantes_tema\\tornar_padrao.feature"
+    "uri": "tests\\features\\variantes_tema\\excluir_tema.feature"
   }
 ]
