@@ -1,20 +1,30 @@
 import { Given, When, Then } from '@cucumber/cucumber';
 import { expect } from '@playwright/test';
 
-import { usuarios } from '../dados/usuarios.js';
-import { LoginPage } from '../pages/LoginPage.js';
-import { HomePage } from '../pages/HomePage.js';
-import { AdminPage } from '../pages/AdmPage.js';
-import { PublicoAlvoPage } from '../pages/PublicoAlvoPage.js';
+import { LoginPage } from '../../pages/LoginPage.js';
+import { HomePage } from '../../pages/HomePage.js';
+import { AdminPage } from '../../pages/AdmPage.js';
+import { PublicoAlvoPage } from '../../pages/PublicoAlvoPage.js';
 
-Given('que estou logado no sistema', async function () {
-  const user = usuarios.admin;
+Given('que estou logado como {string}', async function (tipoUsuario) {
+  this.userType = tipoUsuario;
+
+  let username;
+  let password;
+
+  if (tipoUsuario === 'admin') {
+    username = process.env.ADMIN_USER;
+    password = process.env.ADMIN_PASS;
+  } else {
+    username = process.env.CLIENTE_USER;
+    password = process.env.CLIENTE_PASS;
+  }
 
   this.loginPage = new LoginPage(this.page);
 
   await this.loginPage.navigate();
-  await this.loginPage.login(user.username, user.password);
-  await this.loginPage.btnlogin(); 
+  await this.loginPage.login(username, password);
+  await this.loginPage.btnlogin();
 
   await expect(
     this.page.getByRole('heading', { name: 'Meus Cursos' })
@@ -29,29 +39,38 @@ Given('estou na tela inicial', async function () {
 
 When('acesso o módulo de Administração do site', async function () {
   this.homePage = new HomePage(this.page);
-
-  await this.homePage.openAdmin();
+  await this.homePage.acessarAdmin();
 });
 
 When('acesso o módulo de Plugins', async function () {
   this.adminPage = new AdminPage(this.page);
-
   await this.adminPage.openPlugins();
+});
+
+When('acesso Gerenciar Público-Alvo', async function () {
+  await this.homePage.acessarGerenciarPublicoAlvo();
+
+  // ADICIONA ESTA LINHA
+  this.publicoPage = new PublicoAlvoPage(this.page);
 });
 
 When('acesso o módulo de Público-Alvo', async function () {
   this.publicoPage = new PublicoAlvoPage(this.page);
-
   await this.publicoPage.acessarModulo();
 });
 
 When('clico em Adicionar público-alvo', async function () {
+  if (!this.publicoPage) {
+    this.publicoPage = new PublicoAlvoPage(this.page);
+  }
+
   await this.publicoPage.clicarAdicionar();
 });
 
 When('preencho o nome do público-alvo {string}', async function (nome) {
-  this.nomePublico = nome;
-  await this.publicoPage.preencherNome(nome);
+  this.nomePublico = `${nome}-${this.userType}-${Date.now()}`;
+
+  await this.publicoPage.preencherNome(this.nomePublico);
 });
 
 When('seleciono o perfil {string}', async function (perfil) {
@@ -68,8 +87,8 @@ Then('devo ver a tela de Público-Alvo', async function () {
   ).toBeVisible();
 });
 
-Then('devo ver o público-alvo {string} criado', async function (nome) {
+Then('devo ver o público-alvo criado', async function () {
   await expect(
-    this.page.getByText(nome)
+    this.page.getByText(this.nomePublico)
   ).toBeVisible();
 });

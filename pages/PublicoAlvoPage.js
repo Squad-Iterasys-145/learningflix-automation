@@ -2,31 +2,40 @@ export class PublicoAlvoPage {
   constructor(page) {
     this.page = page;
 
-    // Navegação
-    this.menuPublico = page.getByRole('link', { name: /Público-Alvo/i });
+    // Menu (serve para admin e cliente)
+    this.menuPublico = page.getByRole('link', {
+      name: /Gerenciar Públicos?-Alvo|Público-Alvo/i
+    });
 
     // Tela lista
-    this.titulo = page.getByRole('heading', { name: 'Público-Alvo' });
-    this.btnAdicionar = page.getByRole('button', {
+    this.titulo = page.locator('h2', { hasText: 'Público-Alvo' });
+
+    this.btnAdicionar = page.getByRole('link', {
       name: /Adicionar público-alvo/i
     });
 
     // Formulário
     this.inputNome = page.locator('#name');
     this.dropdownPerfil = page.locator('.multiselect__tags');
-    this.opcaoPerfil = (perfil) =>
-      page.locator('.multiselect__option', { hasText: perfil });
 
-    // Ações
-    this.btnAdicionar = page.locator('a[href="#/create"]');  
+    // botão MAIS específico (evita conflito que você teve)
     this.btnSalvar = page.locator('button.btn-primary.mr-2');
   }
 
+  // =========================
+  // ACESSO (ADMIN OU CLIENTE)
+  // =========================
+
   async acessarModulo() {
     await this.menuPublico.waitFor({ state: 'visible' });
+    await this.menuPublico.scrollIntoViewIfNeeded();
     await this.menuPublico.click();
     await this.titulo.waitFor({ state: 'visible' });
   }
+
+  // =========================
+  // AÇÕES
+  // =========================
 
   async clicarAdicionar() {
     await this.btnAdicionar.waitFor({ state: 'visible' });
@@ -38,26 +47,39 @@ export class PublicoAlvoPage {
     await this.inputNome.fill(nome);
   }
 
-  async selecionarPerfil(perfil) {
+ async selecionarPerfil(perfil) {
+  // 1. abre dropdown de perfil
   await this.dropdownPerfil.click();
 
-  // espera o DOM estabilizar o dropdown
-  await this.page.waitForTimeout(300);
-
-  const option = this.page
+  // 2. seleciona "Tema"
+  const optionPerfil = this.page
     .locator('.multiselect__option')
     .filter({ hasText: perfil });
 
-  await option.first().scrollIntoViewIfNeeded();
-  await option.first().click();
+  await optionPerfil.first().click();
+
+  // 3. AGORA vem o ponto crítico:
+  // clicar no CONTAINER do segundo multiselect (onde aparece "Pesquise...")
+
+  const containerTema = this.page.locator('.multiselect__tags').last();
+
+  await containerTema.click();
+
+  // 4. agora o input aparece de verdade
+  const inputTema = this.page.locator('input.multiselect__input').last();
+
+  await inputTema.waitFor({ state: 'attached' });
+
+  // 5. digita o tema
+  await inputTema.fill(perfil);
+
+  // 6. confirma (Enter igual usuário real)
+  await inputTema.press('Enter');
+
 }
 
   async salvar() {
     await this.btnSalvar.waitFor({ state: 'visible' });
     await this.btnSalvar.click();
-  }
-
-  async validarCriacao(nome) {
-    await this.page.getByText(nome).waitFor({ state: 'visible' });
   }
 }

@@ -1,72 +1,150 @@
 [
   {
-    "description": "",
+    "description": "  Como usuário do sistema\n  Quero criar um público-alvo\n  Para segmentar usuários corretamente",
     "elements": [
       {
         "description": "",
-        "id": "login-na-plataforma;login-com-administrador",
+        "id": "gerenciamento-de-público-alvo;criar-público-alvo-com-sucesso-como-admin",
         "keyword": "Scenario",
-        "line": 3,
-        "name": "Login com administrador",
+        "line": 8,
+        "name": "Criar público-alvo com sucesso como admin",
         "steps": [
           {
             "keyword": "Before",
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 748702200
+              "duration": 760171700
             }
           },
           {
             "arguments": [],
             "keyword": "Given ",
-            "line": 4,
-            "name": "que acesso a página de login",
+            "line": 10,
+            "name": "que estou logado como \"admin\"",
             "match": {
-              "location": "tests\\steps\\login.steps.js:4"
+              "location": "tests\\steps\\publico_alvo.js:9"
             },
             "result": {
               "status": "passed",
-              "duration": 3714452100
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "When ",
-            "line": 5,
-            "name": "preencho o username e password de administrador",
-            "match": {
-              "location": "tests\\steps\\login.steps.js:9"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 256472000
+              "duration": 11486527200
             }
           },
           {
             "arguments": [],
             "keyword": "And ",
-            "line": 6,
-            "name": "clico no botão de login",
+            "line": 11,
+            "name": "estou na tela inicial",
             "match": {
-              "location": "tests\\steps\\login.steps.js:23"
+              "location": "tests\\steps\\publico_alvo.js:34"
             },
             "result": {
               "status": "passed",
-              "duration": 4566750199
+              "duration": 8354600
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 13,
+            "name": "acesso o módulo de Administração do site",
+            "match": {
+              "location": "tests\\steps\\publico_alvo.js:40"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 5525883400
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 14,
+            "name": "acesso o módulo de Plugins",
+            "match": {
+              "location": "tests\\steps\\publico_alvo.js:45"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 112554599
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 15,
+            "name": "acesso o módulo de Público-Alvo",
+            "match": {
+              "location": "tests\\steps\\publico_alvo.js:57"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 3220697899
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 16,
+            "name": "clico em Adicionar público-alvo",
+            "match": {
+              "location": "tests\\steps\\publico_alvo.js:62"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 988489499
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 17,
+            "name": "preencho o nome do público-alvo \"Grupo QA\"",
+            "match": {
+              "location": "tests\\steps\\publico_alvo.js:70"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 50918600
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 18,
+            "name": "seleciono o perfil \"Tema\"",
+            "match": {
+              "location": "tests\\steps\\publico_alvo.js:76"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 411551400
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 19,
+            "name": "salvo o público-alvo",
+            "match": {
+              "location": "tests\\steps\\publico_alvo.js:80"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 71868000
             }
           },
           {
             "arguments": [],
             "keyword": "Then ",
-            "line": 7,
-            "name": "devo ver a página inicial",
+            "line": 21,
+            "name": "devo ver o público-alvo criado",
             "match": {
-              "location": "tests\\steps\\login.steps.js:27"
+              "location": "tests\\steps\\publico_alvo.js:90"
             },
             "result": {
               "status": "passed",
-              "duration": 16374062400
+              "duration": 1926248600
             }
           },
           {
@@ -74,19 +152,181 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 585213799
+              "duration": 489882200
             }
           }
         ],
-        "tags": [],
+        "tags": [
+          {
+            "name": "@publico_alvo",
+            "line": 7
+          },
+          {
+            "name": "@admin",
+            "line": 7
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "gerenciamento-de-público-alvo;criar-público-alvo-com-sucesso-como-cliente",
+        "keyword": "Scenario",
+        "line": 25,
+        "name": "Criar público-alvo com sucesso como cliente",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 773657499
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 27,
+            "name": "que estou logado como \"cliente\"",
+            "match": {
+              "location": "tests\\steps\\publico_alvo.js:9"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 8105828400
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 28,
+            "name": "estou na tela inicial",
+            "match": {
+              "location": "tests\\steps\\publico_alvo.js:34"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 13846300
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 30,
+            "name": "acesso o módulo de Administração do site",
+            "match": {
+              "location": "tests\\steps\\publico_alvo.js:40"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 5551043400
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 31,
+            "name": "acesso Gerenciar Público-Alvo",
+            "match": {
+              "location": "tests\\steps\\publico_alvo.js:50"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 2213819299
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 32,
+            "name": "clico em Adicionar público-alvo",
+            "match": {
+              "location": "tests\\steps\\publico_alvo.js:62"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 12721037800
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 33,
+            "name": "preencho o nome do público-alvo \"Grupo QA Cliente\"",
+            "match": {
+              "location": "tests\\steps\\publico_alvo.js:70"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 38288499
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 34,
+            "name": "seleciono o perfil \"Tema\"",
+            "match": {
+              "location": "tests\\steps\\publico_alvo.js:76"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 3582663199
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 35,
+            "name": "salvo o público-alvo",
+            "match": {
+              "location": "tests\\steps\\publico_alvo.js:80"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 43428599
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 37,
+            "name": "devo ver o público-alvo criado",
+            "match": {
+              "location": "tests\\steps\\publico_alvo.js:90"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1948348799
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 851770099
+            }
+          }
+        ],
+        "tags": [
+          {
+            "name": "@publico_alvo",
+            "line": 24
+          },
+          {
+            "name": "@cliente",
+            "line": 24
+          }
+        ],
         "type": "scenario"
       }
     ],
-    "id": "login-na-plataforma",
+    "id": "gerenciamento-de-público-alvo",
     "line": 1,
     "keyword": "Feature",
-    "name": "Login na plataforma",
+    "name": "Gerenciamento de Público-Alvo",
     "tags": [],
-    "uri": "tests\\features\\login.feature"
+    "uri": "tests\\features\\publico_alvo\\pulico_alvo.feature"
   }
 ]
