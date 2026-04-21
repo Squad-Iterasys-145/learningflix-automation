@@ -88,7 +88,9 @@ Then('devo ver a tela de Público-Alvo', async function () {
 });
 
 Then('devo ver o público-alvo criado', async function () {
-  await expect(
-    this.page.getByText(this.nomePublico)
-  ).toBeVisible();
+  const publico = this.page.getByText(this.nomePublico);
+
+  await publico.waitFor({ state: 'visible', timeout: 10000 });
+
+  await expect(publico).toBeVisible();
 });
