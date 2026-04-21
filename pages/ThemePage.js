@@ -67,6 +67,39 @@ class ThemePage {
         return logo
     }
 
+    async removerFavicon() {
+    const arquivo = this.page.getByText('cli.jpeg')
+
+    await arquivo.waitFor({ state: 'visible' })
+    await arquivo.click()
+
+    await this.page.getByRole('button', { name: 'Excluir' }).click()
+
+    await this.page.getByRole('button', { name: 'OK' }).click()
+    }
+
+    async removerLogo() {
+    const arquivo = this.page.getByText('qa.jpeg')
+
+    await arquivo.waitFor({ state: 'visible' })
+    await arquivo.click()
+
+    await this.page.getByRole('button', { name: 'Excluir' }).click()
+
+    await this.page.getByRole('button', { name: 'OK' }).click()
+    }
+
+    async removerMime() {
+    const arquivo = this.page.getByText('PDFlogo.jpeg')
+
+    await arquivo.waitFor({ state: 'visible' })
+    await arquivo.click()
+
+    await this.page.getByRole('button', { name: 'Excluir' }).click()
+
+    await this.page.getByRole('button', { name: 'OK' }).click()
+    }
+
 
 }
 module.exports = ThemePage
