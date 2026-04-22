@@ -42,7 +42,8 @@ class ThemePage {
         await inputFinal.setInputFiles(caminho)
         await this.botaoEnviarArquivo.click();
         await this.botaoEnviarArquivo.waitFor({ state: 'hidden' })
-        await this.page.waitForTimeout(1000)
+        await this.page.waitForLoadState('networkidle')
+        //await this.page.waitForTimeout(1000)
     }
 
     async realizarUploadFavicon(nomeArquivo) {
@@ -54,7 +55,8 @@ class ThemePage {
 
         await this.botaoEnviarArquivo.click()
         await this.botaoEnviarArquivo.waitFor({ state: 'hidden' })
-        await this.page.waitForTimeout(1000)
+        await this.page.waitForLoadState('networkidle')
+        //await this.page.waitForTimeout(1000)
     }
 
     async salvarConfiguracoes() {
@@ -76,6 +78,7 @@ class ThemePage {
     await this.page.getByRole('button', { name: 'Excluir' }).click()
 
     await this.page.getByRole('button', { name: 'OK' }).click()
+    await this.page.waitForLoadState('networkidle')
     }
 
     async removerLogo() {
@@ -87,6 +90,7 @@ class ThemePage {
     await this.page.getByRole('button', { name: 'Excluir' }).click()
 
     await this.page.getByRole('button', { name: 'OK' }).click()
+    await this.page.waitForLoadState('networkidle')
     }
 
     async removerMime() {
@@ -98,6 +102,7 @@ class ThemePage {
     await this.page.getByRole('button', { name: 'Excluir' }).click()
 
     await this.page.getByRole('button', { name: 'OK' }).click()
+    await this.page.waitForLoadState('networkidle')
     }
 
 

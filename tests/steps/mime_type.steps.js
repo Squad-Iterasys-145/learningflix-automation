@@ -31,6 +31,7 @@ When('e faço upload de um arquivo renomeado para .jpeg e clico em salvar', asyn
 
 Then('não exibe bloqueio para arquivo com formato interno inválido', async function () {
     //acessar o tema bucar pelo upload e deletar o arquivo
+    await this.page.waitForLoadState('networkidle')
     await this.themePage.acessarEdicaoVariante('MimeType')
     await this.themePage.removerMime()
     await this.themePage.salvarConfiguracoes()
