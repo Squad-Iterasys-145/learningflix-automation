@@ -14,6 +14,7 @@ When('localizo o campo Favicon e faço upload do arquivo', async function () {
 
 Then('a favicon é salva com sucesso', async function () {
     //acessar o tema bucar pelo upload e deletar o arquivo
+    await this.page.waitForLoadState('networkidle')
     const nomeTema =
       this.usuarioAtual === 'admin'
         ? 'AdminLogo'
