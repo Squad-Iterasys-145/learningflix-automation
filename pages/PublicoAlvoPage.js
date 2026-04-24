@@ -1,119 +1,261 @@
-class PublicoAlvoPage { 
+const { expect } = require('@playwright/test');
 
-  constructor(page) { 
+class PublicoAlvoPage {
 
-    this.page = page; 
+  constructor(page) {
+    this.page = page;
 
-    // Menu (serve para admin e cliente) 
+    // =========================
+    // MENU
+    // =========================
+    this.menuPublico = page.getByRole('link', {
+      name: /Gerenciar Públicos?-Alvo|Público-Alvo/i
+    });
 
-    this.menuPublico = page.getByRole('link', { 
-
-      name: /Gerenciar Públicos?-Alvo|Público-Alvo/i 
-
-    }); 
-
-    // Tela lista 
-
+    // =========================
+    // LISTA PÚBLICO-ALVO
+    // =========================
     this.titulo = page.locator('h2', { hasText: 'Público-Alvo' });
-    this.btnAdicionar = page.getByRole('link', { 
 
-      name: /Adicionar público-alvo/i 
+    this.btnAdicionar = page.getByRole('link', {
+      name: /Adicionar público-alvo/i
+    });
 
-    }); 
+    // =========================
+    // FORMULÁRIO
+    // =========================
+    this.inputNome = page.locator('#name');
+    this.dropdownPerfil = page.locator('.multiselect__tags');
+    this.btnSalvar = page.locator('button.btn-primary.mr-2');
 
-    // Formulário 
+    // =========================
+    // MEMBROS
+    // =========================
+    this.btnGerenciarMembros = page.locator(
+      'a[title="Gerenciar membros do público-alvo"]'
+    );
 
-    this.inputNome = page.locator('#name'); 
-    this.dropdownPerfil = page.locator('.multiselect__tags'); 
+    this.listaDisponivel = page
+     .locator('div.list-box-item')
+     .filter({ has: page.locator('.search-box') })
+     .locator('ul.list-box');
 
-    // botão MAIS específico (evita conflito que você teve) 
+    this.listaGrupo = page
+      .locator('div.list-box-item')
+      .filter({ has: page.locator('.bulk-action') })
+      .locator('ul.list-box');
 
-    this.btnSalvar = page.locator('button.btn-primary.mr-2'); 
-  } 
+    this.containerAcoes = this.page.locator('div.actions');
 
-  // ========================= 
+    this.usuarioNoGrupo = (nome) =>
+      this.listaGrupo.locator('li.list-item', { hasText: nome });
 
-  // ACESSO (ADMIN OU CLIENTE) 
+    this.btnAdicionarUsuario = page
+      .locator('.actions button')
+      .first();
 
-  // ========================= 
+    this.btnRemoverUsuario = page
+      .locator('button.btn-primary')
+      .last();
 
-  async acessarModulo() { 
+    // BOTÃO MAIS SEGURO PARA REMOVER SELECIONADO
+    this.btnRemoverSelecionado = this.containerAcoes
+    .locator('button')
+    .nth(2);
 
-    await this.menuPublico.waitFor({ state: 'visible' }); 
+    //  INPUT BUSCA (corrigido)
+    this.inputBuscaUsuario = page
+      .locator('input[placeholder="Pesquisar"]')
+      .first();
+  
+    // =========================
+    // BUSCA
+    // =========================
+    this.inputBuscaPublico = this.page
+      .locator('label:has-text("Pesquisar") input[type="search"]')
+      .first();
+    this.linhasTabela = this.page.locator('table tbody tr');
+  
+    }
 
-    await this.menuPublico.scrollIntoViewIfNeeded(); 
+  // =========================
+  // ACESSO
+  // =========================
+  async acessarModulo() {
+    await this.menuPublico.waitFor({ state: 'visible' });
+    await this.menuPublico.scrollIntoViewIfNeeded();
+    await this.menuPublico.click();
+    await this.titulo.waitFor({ state: 'visible' });
+  }
 
-    await this.menuPublico.click(); 
+  async clicarAdicionar() {
+    await this.btnAdicionar.waitFor({ state: 'visible' });
+    await this.btnAdicionar.click();
+  }
 
-    await this.titulo.waitFor({ state: 'visible' }); 
+  async preencherNome(nome) {
+    await this.inputNome.waitFor({ state: 'visible' });
+    await this.inputNome.fill(nome);
+  }
 
-  } 
-  // ========================= 
+  async selecionarPerfil(perfil) {
+    await this.dropdownPerfil.click();
 
-  // AÇÕES 
+    const optionPerfil = this.page
+      .locator('.multiselect__option')
+      .filter({ hasText: perfil });
 
-  // ========================= 
-  async clicarAdicionar() { 
+    await optionPerfil.first().click();
 
-    await this.btnAdicionar.waitFor({ state: 'visible' }); 
-    await this.btnAdicionar.click(); 
+    const containerTema = this.page.locator('.multiselect__tags').last();
+    await containerTema.click();
 
-  } 
+    const inputTema = this.page.locator('input.multiselect__input').last();
+    await inputTema.waitFor({ state: 'attached' });
 
-  async preencherNome(nome) { 
+    await inputTema.fill(perfil);
+    await inputTema.press('Enter');
+  }
 
-    await this.inputNome.waitFor({ state: 'visible' }); 
-    await this.inputNome.fill(nome); 
-  } 
+  async salvar() {
+    await this.btnSalvar.waitFor({ state: 'visible' });
+    await this.btnSalvar.click();
+  }
 
-  async selecionarPerfil(perfil) { 
+  async validarPublicoCriado(nome) {
+    const linha = this.page.locator('tr', { hasText: nome });
+    await linha.waitFor({ state: 'visible', timeout: 15000 });
+  }
 
-  // 1. abre dropdown de perfil 
+  // =========================
+  // MEMBROS
+  // =========================
+  async abrirGerenciarMembros(nomePublico) {
+    const linha = this.page.locator('tr', { hasText: nomePublico });
+    const botao = linha.locator('a[title="Gerenciar membros do público-alvo"]');
 
-    await this.dropdownPerfil.click(); 
+    await botao.waitFor({ state: 'visible' });
+    await botao.click();
 
-  // 2. seleciona "Tema" 
+    await expect(this.page).toHaveURL(/members/i, { timeout: 15000 });
 
-  const optionPerfil = this.page 
+    await this.listaDisponivel.first().waitFor({ state: 'visible' });
+  }
 
-    .locator('.multiselect__option') 
+  async adicionarUsuario(nome) {
 
-    .filter({ hasText: perfil }); 
+  await this.listaDisponivel.first().waitFor({ state: 'visible', timeout: 15000 });
 
-  await optionPerfil.first().click(); 
+  await this.inputBuscaUsuario.fill(nome);
+  await this.page.waitForTimeout(300);
 
-  // clicar no CONTAINER do segundo multiselect (onde aparece "Pesquise...") 
+  const usuario = this.page
+    .locator('li.list-item', { hasText: nome })
+    .first();
 
-  const containerTema = this.page.locator('.multiselect__tags').last(); 
+  await usuario.waitFor({ state: 'visible', timeout: 15000 });
+  await usuario.click({ force: true });
 
-  await containerTema.click(); 
+  await this.page.waitForTimeout(300);
 
+  // BOTÃO CERTO
+  const btnAdicionar = this.containerAcoes
+  .locator('button')
+  .nth(0); //  botão correto (direita → esquerda)
 
-  // 4. agora o input aparece de verdade 
+  await btnAdicionar.waitFor({ state: 'visible', timeout: 15000 });
+  await btnAdicionar.click();
+}
+  async salvarMembros() {
+  const btnSalvar = this.page.locator('button.btn.btn-primary.mr-2');
 
-  const inputTema = this.page.locator('input.multiselect__input').last(); 
+  await btnSalvar.scrollIntoViewIfNeeded();
+  await btnSalvar.waitFor({ state: 'visible', timeout: 15000 });
+  await btnSalvar.click();
+}
 
-  await inputTema.waitFor({ state: 'attached' }); 
+  async voltarParaGerenciarMembros(nomePublico) {
+    await this.abrirGerenciarMembros(nomePublico);
+  }
 
+  async validarUsuarioNoGrupo(nome) {
+    await expect(
+      this.listaGrupo.locator('li.list-item', { hasText: nome }).first()
+    ).toBeVisible();
+  }
 
-  // 5. digita o tema 
+  async removerUsuario(nome) {
 
-  await inputTema.fill(perfil); 
+  const usuario = this.usuarioNoGrupo(nome).first();
+  await usuario.waitFor({ state: 'visible', timeout: 15000 });
+  await usuario.click({ force: true });
 
- 
-  // 6. confirma (Enter igual usuário real) 
+  await this.btnRemoverSelecionado.waitFor({ state: 'visible', timeout: 15000 });
+  await this.btnRemoverSelecionado.click();
+}
 
-  await inputTema.press('Enter'); 
+async validarUsuarioNaoEstaNoGrupo(nome) {
+  return this.listaGrupo.locator('li.list-item', { hasText: nome });
+}
 
-} 
+async excluirPublico(nomePublico) {
 
-  async salvar() { 
+  const linha = this.page.locator('tr', { hasText: nomePublico });
 
-    await this.btnSalvar.waitFor({ state: 'visible' }); 
-    await this.btnSalvar.click(); 
+  const btnExcluir = linha.locator('button[title="Excluir público-alvo"]');
 
-  } 
+  await btnExcluir.waitFor({ state: 'visible', timeout: 15000 });
+  await btnExcluir.click();
 
-} 
+  
+  // AGUARDA MODAL DE CONFIRMAÇÃO
+  const btnConfirmar = this.page.locator('button.btn.btn-primary', {
+    hasText: 'Confirmar'
+  });
 
-module.exports = PublicoAlvoPage 
+  await btnConfirmar.waitFor({ state: 'visible', timeout: 10000 });
+
+  await btnConfirmar.click();
+
+  
+  // GARANTE QUE O MODAL SUMIU
+await btnConfirmar.waitFor({ state: 'hidden', timeout: 10000 });
+}
+
+async validarPublicoNaoExiste(nomePublico) {
+
+  // garante atualização da tela
+  await this.page.reload();
+
+  const linha = this.page.locator('tr', { hasText: nomePublico });
+
+  await expect.poll(async () => {
+    return await linha.count();
+  }, {
+    timeout: 15000,
+    message: 'Público-alvo ainda aparece após exclusão'
+  }).toBe(0);
+}
+
+async buscarPublico(nome) {
+
+  await this.inputBuscaPublico.waitFor({ state: 'visible', timeout: 15000 });
+
+  await this.inputBuscaPublico.fill(nome);
+
+  // aguarda filtro aplicar
+  await this.page.waitForTimeout(500);
+}
+
+async validarBuscaPublico(nome) {
+
+  const linhas = this.linhasTabela;
+
+  await expect(linhas).toHaveCount(1);
+
+  await expect(linhas.first()).toContainText(nome);
+}
+
+}
+
+module.exports = PublicoAlvoPage;
