@@ -41,4 +41,3 @@ When('clico em Editar a variante desejada', async function () {
 When('clico em Salvar', async function () {
     await this.themePage.salvarConfiguracoes()
 });
-
