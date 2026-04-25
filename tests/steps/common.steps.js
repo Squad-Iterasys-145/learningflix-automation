@@ -13,7 +13,7 @@ Given('que estou logado como {string}', async function (usuario) {
 
     let username, password;
 
-    if (usuario === 'admin') {
+    if (usuario === 'adm') {
         username = process.env.ADMIN_USERNAME; 
         password = process.env.ADMIN_PASSWORD;
     } else {
@@ -34,7 +34,7 @@ When('acesso o Gerenciamento de Temas', async function () {
 
 When('clico em Editar a variante desejada', async function () {
     this.themePage = new ThemePage(this.page)
-    const nomeTema = this.usuarioAtual === 'admin' ? 'AdminLogo' : 'ClienteLogo'; 
+    const nomeTema = this.usuarioAtual === 'adm' ? 'AdminLogo' : 'ClienteLogo'; 
     await this.themePage.acessarEdicaoVariante(nomeTema);
 });
 

@@ -3,7 +3,7 @@ class HomePage {
     this.page = page
     // Diego
     this.homeMenu = page.getByRole('link', { name: 'Página inicial' })
-    this.adminMenu = page.locator('a.menu-admin').filter({ visible: true })
+    this.admMenu = page.locator('a.menu-admin').filter({ visible: true })
     this.perfil = page.getByRole('button', { name: 'Menu do usuário' })
     this.changeTheme = page.getByRole('menuitem', { name: 'Trocar tema' })
     this.themeInput = page.getByRole('combobox')
@@ -26,7 +26,7 @@ class HomePage {
 
     //Diego
     async goadm() {
-        await this.adminMenu.click()
+        await this.admMenu.click()
     }
 
     async trocartema() {
@@ -46,7 +46,7 @@ class HomePage {
     }
 
     async admsite(){
-        await this.adminMenu.click()
+        await this.admMenu.click()
     }
     // Felipe
 

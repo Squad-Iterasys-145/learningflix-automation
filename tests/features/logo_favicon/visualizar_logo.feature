@@ -11,5 +11,5 @@ Feature: Pré-visualização exibe logo configurado
 
     Examples:
     | usuario   |
-    | admin     |
+    | adm       |
     | cliente   |
