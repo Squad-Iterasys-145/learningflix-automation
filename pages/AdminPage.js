@@ -10,7 +10,7 @@ class AdminPage {
     }
     // Diego
     async acessarGerenciamentoTemas(usuario) {
-        if (usuario === 'admin') {
+        if (usuario === 'adm') {
             await this.abaAparencia.click()
             await this.linkTemaAdmin.click()
         } else {
