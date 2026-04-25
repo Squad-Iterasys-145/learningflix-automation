@@ -10,7 +10,7 @@ const ThemePage = require('../../pages/ThemePage')
 
 When('clico nos 3 pontinhos da variante deseja e em Pré-visualizar', async function (){
     this.themePage = new ThemePage(this.page)
-    const nomeTema = this.usuarioAtual === 'admin' ? 'Treinamento Thamires' : 'Treinamento Thamires'; 
+    const nomeTema = this.usuarioAtual === 'adm' ? 'Treinamento Thamires' : 'Treinamento Thamires'; 
     await this.themePage.acessarPreVisualizacao(nomeTema)
 
 })
