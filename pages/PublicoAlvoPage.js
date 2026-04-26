@@ -5,32 +5,28 @@ class PublicoAlvoPage {
   constructor(page) {
     this.page = page;
 
-    // =========================
+    
     // MENU
-    // =========================
     this.menuPublico = page.getByRole('link', {
       name: /Gerenciar Públicos?-Alvo|Público-Alvo/i
     });
 
-    // =========================
+    
     // LISTA PÚBLICO-ALVO
-    // =========================
     this.titulo = page.locator('h2', { hasText: 'Público-Alvo' });
 
     this.btnAdicionar = page.getByRole('link', {
       name: /Adicionar público-alvo/i
     });
 
-    // =========================
+    
     // FORMULÁRIO
-    // =========================
     this.inputNome = page.locator('#name');
     this.dropdownPerfil = page.locator('.multiselect__tags');
     this.btnSalvar = page.locator('button.btn-primary.mr-2');
 
-    // =========================
+    
     // MEMBROS
-    // =========================
     this.btnGerenciarMembros = page.locator(
       'a[title="Gerenciar membros do público-alvo"]'
     );
@@ -68,9 +64,8 @@ class PublicoAlvoPage {
       .locator('input[placeholder="Pesquisar"]')
       .first();
   
-    // =========================
+  
     // BUSCA
-    // =========================
     this.inputBuscaPublico = this.page
       .locator('label:has-text("Pesquisar") input[type="search"]')
       .first();
@@ -78,9 +73,8 @@ class PublicoAlvoPage {
   
     }
 
-  // =========================
+ 
   // ACESSO
-  // =========================
   async acessarModulo() {
     await this.menuPublico.waitFor({ state: 'visible' });
     await this.menuPublico.scrollIntoViewIfNeeded();
@@ -94,9 +88,12 @@ class PublicoAlvoPage {
   }
 
   async preencherNome(nome) {
-    await this.inputNome.waitFor({ state: 'visible' });
-    await this.inputNome.fill(nome);
-  }
+  await this.inputNome.waitFor({ state: 'visible' });
+
+  await this.inputNome.click();
+  await this.inputNome.fill('');
+  await this.inputNome.fill(nome);
+}
 
   async selecionarPerfil(perfil) {
     await this.dropdownPerfil.click();
@@ -127,9 +124,8 @@ class PublicoAlvoPage {
     await linha.waitFor({ state: 'visible', timeout: 15000 });
   }
 
-  // =========================
+  
   // MEMBROS
-  // =========================
   async abrirGerenciarMembros(nomePublico) {
     const linha = this.page.locator('tr', { hasText: nomePublico });
     const botao = linha.locator('a[title="Gerenciar membros do público-alvo"]');
@@ -254,6 +250,33 @@ async validarBuscaPublico(nome) {
   await expect(linhas).toHaveCount(1);
 
   await expect(linhas.first()).toContainText(nome);
+}
+
+async editarPublico(nomePublico) {
+
+  const linha = this.page.locator('tr', { hasText: nomePublico });
+
+  await linha.waitFor({ state: 'visible', timeout: 15000 });
+
+  const btnEditar = linha.locator('a[title="Editar público-alvo"]');
+
+  await btnEditar.waitFor({ state: 'visible', timeout: 15000 });
+  await btnEditar.click();
+
+  // garante que entrou na tela de edição
+  await this.inputNome.waitFor({ state: 'visible', timeout: 15000 });
+}
+
+async atualizarPublico() {
+  const btn = this.page.getByRole('button', {
+    name: /Atualizar público-Alvo/i
+  });
+
+  await btn.waitFor({ state: 'visible', timeout: 15000 });
+  await btn.click();
+
+  // garante que voltou pra lista
+  await this.titulo.waitFor({ state: 'visible', timeout: 15000 });
 }
 
 }
