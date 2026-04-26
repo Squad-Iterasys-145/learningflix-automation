@@ -12,8 +12,8 @@ setDefaultTimeout(120000);
 
 Before(async function () {
   this.browser = await chromium.launch({
-  headless: false,
-  slowMo: 200
+  headless: true,
+  //slowMo: 200
   });
   const context = await this.browser.newContext({
     locale: 'en-US',
