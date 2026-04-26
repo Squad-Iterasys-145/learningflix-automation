@@ -15,12 +15,14 @@ Feature: Excluir Público-Alvo
     When acesso o módulo de Administração do site
     And acesso o módulo de Plugins
     And acesso o módulo de Público-Alvo
+    
     And clico em Adicionar público-alvo
     And preencho o nome do público-alvo "Grupo QA Excluir"
     And seleciono o perfil "Tema"
     And salvo o público-alvo
 
     Then devo ver o público-alvo criado
+
 
     When excluo o público-alvo criado
 
@@ -35,6 +37,8 @@ Feature: Excluir Público-Alvo
 
     When acesso o módulo de Administração do site
     And acesso o módulo de Público-Alvo
+
+  
     And clico em Adicionar público-alvo
     And preencho o nome do público-alvo "Grupo QA Excluir Cliente"
     And seleciono o perfil "Tema"
@@ -42,6 +46,7 @@ Feature: Excluir Público-Alvo
 
     Then devo ver o público-alvo criado
 
+    
     When excluo o público-alvo criado
 
     Then o público-alvo não deve existir

@@ -15,7 +15,7 @@ Feature: Editar Público-Alvo
     And acesso o módulo de Plugins
     And acesso o módulo de Público-Alvo
 
-    # Criação do dado base
+    
     And clico em Adicionar público-alvo
     And preencho o nome do público-alvo "Grupo QA"
     And seleciono o perfil "Tema"
@@ -23,7 +23,7 @@ Feature: Editar Público-Alvo
 
     Then devo ver o público-alvo criado
 
-    # Edição
+    
     When edito o público-alvo criado
     And altero o nome do público-alvo para um novo valor
     And clico em Atualizar público-alvo
@@ -39,7 +39,7 @@ Feature: Editar Público-Alvo
     When acesso o módulo de Administração do site
     And acesso o módulo de Público-Alvo
 
-    # Criação do dado base
+    
     And clico em Adicionar público-alvo
     And preencho o nome do público-alvo "Grupo QA Cliente"
     And seleciono o perfil "Tema"
@@ -47,7 +47,7 @@ Feature: Editar Público-Alvo
 
     Then devo ver o público-alvo criado
 
-    # Edição
+    
     When edito o público-alvo criado
     And altero o nome do público-alvo para um novo valor
     And clico em Atualizar público-alvo
