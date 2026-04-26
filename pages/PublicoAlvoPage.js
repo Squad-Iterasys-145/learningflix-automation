@@ -277,6 +277,7 @@ async atualizarPublico() {
 
   // garante que voltou pra lista
   await this.titulo.waitFor({ state: 'visible', timeout: 15000 });
+  await this.page.waitForTimeout(2000);
 }
 
 }

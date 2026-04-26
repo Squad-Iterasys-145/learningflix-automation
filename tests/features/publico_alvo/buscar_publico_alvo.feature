@@ -1,12 +1,16 @@
 @publico_alvo @buscar_publico_alvo
 
-Feature: Busca de público-alvo
-  
+Feature: Buscar público-alvo
+
+  Como usuário do sistema
+  Quero buscar um público-alvo pelo nome
+  Para localizar rapidamente grupos cadastrados
+
   @admin
   Scenario: Admin busca público-alvo pelo nome
-
     Given que estou logado como "admin"
     And estou na tela inicial
+
     When acesso o módulo de Administração do site
     And acesso o módulo de Público-Alvo
     And clico em Adicionar público-alvo
@@ -20,9 +24,9 @@ Feature: Busca de público-alvo
 
   @cliente
   Scenario: Cliente busca público-alvo pelo nome
-
     Given que estou logado como "cliente"
     And estou na tela inicial
+
     When acesso o módulo de Administração do site
     And acesso o módulo de Público-Alvo
     And clico em Adicionar público-alvo
@@ -32,7 +36,3 @@ Feature: Busca de público-alvo
 
     When busco pelo público-alvo criado
     Then devo ver apenas o público-alvo buscado
-
-
- 
-  

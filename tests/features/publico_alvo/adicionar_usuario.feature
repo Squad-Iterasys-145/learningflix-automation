@@ -2,6 +2,10 @@
 
 Feature: Adicionar usuário ao público-alvo
 
+  Como usuário do sistema
+  Quero adicionar usuários a um público-alvo
+  Para gerenciar corretamente os membros do grupo
+
   @admin
   Scenario: Admin adiciona usuário ao público-alvo
     Given que estou logado como "admin"

@@ -2,10 +2,6 @@
 
 Feature: Criar Público-Alvo
 
-  Como usuário do sistema
-  Quero criar um público-alvo
-  Para segmentar usuários corretamente
-
   @admin
   Scenario: Criar público-alvo com sucesso como admin
     Given que estou logado como "admin"
