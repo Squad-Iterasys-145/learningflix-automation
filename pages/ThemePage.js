@@ -6,6 +6,8 @@ class ThemePage {
         this.botaoOpcoesDoTema = (nome) => this.containerTema(nome).locator('#dropdownMenuButton')
         this.linkVisualizar = page.getByRole('menuitem', {name: 'Pré-visualizar'})
         this.linkEditar = page.getByRole('menuitem', { name: 'Editar' })
+        this.linkInativar = page.getByRole('menuitem', { name: 'Inativas' })
+        this.linkExluir = page. getByRole('menuitem', { name: 'Excluir' })
 
         // Upload Logo
         this.botaoAbrirUploadLogo = page.locator('fieldset[id*="logoimagefile"]').getByRole('button', { name: 'Adicionar...' })
@@ -32,6 +34,18 @@ class ThemePage {
         await this.botaoOpcoesDoTema(nomeDoTema).click()
         await this.linkVisualizar.waitFor({ state: 'visible'})
         await this.linkVisualizar.click()
+    }
+
+    async acessarExcluirInativar() {
+    const cardPadrao = this.page.locator('.card.theme-default')
+    const botaoMenu = cardPadrao.locator('#dropdownMenuButton')
+
+    await botaoMenu.click()
+
+    // Em vez de esperar pela classe .show (que às vezes oscila)
+    // Esperamos que algum item comum do menu apareça, como o "Editar"
+    await this.page.getByRole('menuitem', { name: 'Editar' }).waitFor({ state: 'visible' })
+                
     }
 
     async realizarUploadLogo(nomeArquivo) {
