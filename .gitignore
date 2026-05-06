@@ -3,6 +3,8 @@ node_modules
 playwright-report
 test-results
 
+reports/
+
 # Playwright
 /playwright-report/
 /blob-report/
