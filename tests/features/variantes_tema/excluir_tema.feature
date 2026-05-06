@@ -4,19 +4,20 @@ Feature: Excluir tema
   Quero excluir um tema
   Para remover temas desnecessários da plataforma
 
-  Background:
-    Given que estou logado como Administrador
-    When clico em Administração do site
-    And clico na aba Aparência
-    And clico em Gerenciamento de Temas
+  Scenario Outline: Excluir tema com sucesso
+    Given que estou logado como "<usuario>"
+    When acesso o Gerenciamento de Temas como "<usuario>"
     And clico em Adicionar novo tema
     And clico no botão Adicionar
-    And limpo e preencho o campo "Nome do tema" com "Automação Thamires"
+    And limpo e preencho o campo "Nome do tema" com "Tema Excluir <usuario>"
     And clico em Salvar mudanças
-
-  Scenario: Excluir tema com sucesso
-    When clico no menu de ações do card do tema "Automação Thamires"
+    And clico no menu de ações do card do tema "Tema Excluir <usuario>"
     And clico em Excluir
     And confirmo a exclusão
     Then o sistema exibe a mensagem "O tema foi excluído com sucesso!"
-    And o tema "Automação Thamires" não aparece na listagem
+    And o tema "Tema Excluir <usuario>" não aparece na listagem
+
+    Examples:
+    | usuario               |
+    | Administrador Cliente  |
+    # | Administrador       |
