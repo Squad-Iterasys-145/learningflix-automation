@@ -23,6 +23,8 @@ Given('que estou logado como {string}', async function (usuario) {
 
     await this.loginPage.login(username, password)
     await this.loginPage.btnlogin()
+     await this.page.waitForURL('**/my/**', { timeout: 30000 }) // ← Adicionado porque a página estava fechando inesperadamente
+    await this.page.waitForLoadState('networkidle')
 });
 
 When('acesso o Gerenciamento de Temas', async function () {
