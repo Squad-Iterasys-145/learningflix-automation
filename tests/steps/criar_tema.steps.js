@@ -14,22 +14,22 @@ Given('que estou logado como Administrador', async function () {
     await this.page.waitForURL('**/my/**')
 })
 
-
-When('clico em Administração do site', async function () {
-    await this.page.locator('a[href*="admin/search.php"]').first().click()
-    await this.page.waitForURL('**/admin/**', {timeout: 15000})
+When('acesso o Gerenciamento de Temas como {string}', async function (usuario) {
+    if (usuario === 'Administrador') {
+        await this.page.locator('a[href*="admin/search.php"]').first().click()
+        await this.page.waitForURL('**/admin/**', { timeout: 15000 })
+        await this.page.getByRole('tab', { name: 'Aparência' }).click()
+        await this.page.waitForLoadState('networkidle')
+        await this.page.getByRole('link', { name: 'Gerenciamento de Temas' }).click()
+        await this.page.waitForLoadState('networkidle')
+    } else {
+        await this.page.locator('a[href*="client_admin.php"]').first().click()
+        await this.page.waitForLoadState('networkidle')
+        await this.page.getByRole('link', { name: 'Gerenciar Temas' }).click()
+        await this.page.waitForLoadState('networkidle')
+    }
 })
 
-
-When('clico na aba Aparência', async function () {
-    await this.page.getByRole('tab', { name: 'Aparência' }).click()
-    await this.page.waitForLoadState('networkidle')
-})
-
-When('clico em Gerenciamento de Temas', async function () {
-    await this.page.getByRole('link', { name: 'Gerenciamento de Temas' }).click()
-    await this.page.waitForLoadState('networkidle')
-})
 
 
 When('clico em Adicionar novo tema', async function () {
