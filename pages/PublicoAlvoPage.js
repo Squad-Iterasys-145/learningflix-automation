@@ -110,7 +110,7 @@ class PublicoAlvoPage {
     const inputTema = this.page.locator('input.multiselect__input').last();
     await inputTema.waitFor({ state: 'attached' });
 
-    await inputTema.fill(perfil);
+    await inputTema.fill('Treinamento Thamires');
     await inputTema.press('Enter');
   }
 
@@ -278,6 +278,12 @@ async atualizarPublico() {
   // garante que voltou pra lista
   await this.titulo.waitFor({ state: 'visible', timeout: 15000 });
   await this.page.waitForTimeout(2000);
+}
+
+async validarMensagemMinimoCaracteres() {
+  const msg = this.page.locator('text=/no mínimo 3 caracteres/i');
+
+  await expect(msg.first()).toBeVisible({ timeout: 10000 });
 }
 
 }
