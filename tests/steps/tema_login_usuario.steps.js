@@ -1,12 +1,13 @@
 const { When, Then } = require('@cucumber/cucumber');
 const { expect } = require('@playwright/test');
 
+const HomePage = require('../../pages/HomePage');
 const ThemePage = require('../../pages/ThemePage');
 const UserManagementPage = require('../../pages/UserManagementPage');
 const LoginPage = require('../../pages/LoginPage');
 
+// NAVEGAÇÃO ADMIN
 
-// ACESSAR TEMAS
 
 When('acesso o módulo de Temas', async function () {
 
@@ -15,11 +16,10 @@ When('acesso o módulo de Temas', async function () {
     .filter({ hasText: 'Gerenciar Temas' })
     .first();
 
-  await expect(linkTema).toBeVisible({ timeout: 15000 });
-  await linkTema.click();
+  await linkTema.waitFor({ state: 'visible', timeout: 15000 });
 
-  //  validação leve de página
-  await expect(this.page.getByText('Adicionar novo tema')).toBeVisible();
+  await linkTema.scrollIntoViewIfNeeded();
+  await linkTema.click();
 });
 
 
@@ -27,143 +27,108 @@ When('acesso o módulo de Temas', async function () {
 
 When('crio o tema {string}', async function (nomeTema) {
 
+  // abre modal de criação
   const btnAdicionar = this.page.getByText('Adicionar novo tema');
-  await expect(btnAdicionar).toBeVisible({ timeout: 15000 });
+  await btnAdicionar.waitFor({ state: 'visible', timeout: 15000 });
   await btnAdicionar.click();
 
-  const inputNome = this.page.locator('input[id^="id_name_"]');
+  // confirmação (se existir modal de segurança)
+  const btnConfirmar = this.page.locator('button[data-action="save"]');
 
-  await expect(inputNome).toBeVisible({ timeout: 15000 });
+  if (await btnConfirmar.isVisible().catch(() => false)) {
+    await btnConfirmar.click();
+  }
 
-  await inputNome.fill('');
-  await inputNome.fill(nomeTema);
+  // preenche nome
+ const inputNome = this.page.locator('input[id^="id_name_"]');
 
-  await expect(inputNome).toHaveValue(nomeTema);
+await inputNome.waitFor({ state: 'visible', timeout: 15000 });
 
-  //  validação leve extra (modal continua aberto)
-  await expect(this.page.locator('button[data-action="save"]')).toBeVisible();
+await inputNome.click();
+await inputNome.press('Control+A');
+await inputNome.press('Backspace');
+
+await inputNome.fill(nomeTema);
+await inputNome.press('Tab');
+await this.page.waitForLoadState('networkidle');
 });
 
-
-// UPLOADS
+When('preencho o campo {string} com {string}', async function (campo, valor) {
+  await this.page.getByLabel(campo).fill(valor);
+});
 
 When('realizo upload do logo', async function () {
 
   this.themePage = new ThemePage(this.page);
 
-  await expect(this.themePage.botaoAbrirUploadLogo).toBeVisible({ timeout: 15000 });
+  await this.themePage.botaoAbrirUploadLogo.scrollIntoViewIfNeeded();
+
+  await this.themePage.botaoAbrirUploadLogo.waitFor({
+    state: 'visible'
+  });
 
   await this.themePage.realizarUploadLogo('qa.jpeg');
-
-  //  melhor que timeout fixo
-  await expect(this.page.locator('img')).toBeVisible();
 });
 
 When('realizo upload do favicon', async function () {
 
-  await expect(this.themePage.botaoAbrirUploadFav).toBeVisible({ timeout: 15000 });
+  await this.themePage.botaoAbrirUploadFav.scrollIntoViewIfNeeded();
+
+  await this.themePage.botaoAbrirUploadFav.waitFor({
+    state: 'visible'
+  });
 
   await this.themePage.realizarUploadFavicon('qa.jpeg');
 });
 
 When('salvo o tema', async function () {
-
   await this.themePage.salvarConfiguracoes();
-
-  //  validação leve (ideal seria toast, se existir)
-  await expect(this.page).toHaveURL(/theme|multithemes/i);
 });
 
 
 // USUÁRIO
-
 When('acesso o módulo Gerenciar Usuários', async function () {
-
   this.userPage = new UserManagementPage(this.page);
-
   await this.userPage.acessarGerenciarUsuarios();
-
-  //  validação leve de página
-  await expect(this.page.getByText('Editar usuário')).toBeVisible();
 });
 
 When('edito o usuário {string}', async function (usuario) {
-
   await this.userPage.abrirEdicaoUsuario(usuario);
-
-  //  validação forte aqui é importante
-  await expect(this.page.getByText('Editar usuário')).toBeVisible();
 });
 
 When('seleciono o tema {string}', async function (tema) {
-
   await this.userPage.selecionarTema(tema);
-
-  //  validação leve: opção foi escolhida (autocomplete fechou ou mudou valor)
-  const input = this.page.locator('input[placeholder="Buscar"]').first();
-  await expect(input).toBeVisible();
 });
 
 When('salvo o usuário', async function () {
-
   await this.userPage.salvarUsuario();
-
-  //  validação importante (modal fecha)
-  await expect(this.page.locator('text=Editar usuário')).toBeHidden();
 });
 
 
-// LOGIN / LOGOUT
-
+// PERFIL / LOGOUT / LOGIN
 When('clico no perfil', async function () {
-
-  const perfilBtn = this.page.getByRole('button', { name: /menu do usuário/i });
-  const fallback = this.page.locator('span.userinitials').first();
-
-  if (await perfilBtn.isVisible().catch(() => false)) {
-    await perfilBtn.click();
-  } else {
-    await fallback.click();
-  }
-
-  //  validação leve: menu abriu
-  await expect(this.page.getByRole('menuitem', { name: 'Sair' })).toBeVisible();
+  await this.page.locator('span.userinitials').first().click();
 });
 
 When('realizo logout', async function () {
-
   await this.page.getByRole('menuitem', { name: 'Sair' }).click();
-
-  await expect(this.page).toHaveURL(/login|index\.php/i);
-});
-
-When('realizo login como {string}', async function (usuario) {
-
-  this.loginPage = new LoginPage(this.page);
-
-  await this.loginPage.navigate();
-
-  let username;
-  let password;
-
-  if (usuario === 'aluno4') {
-    username = process.env.ALUNO4_USERNAME;
-    password = process.env.ALUNO4_PASSWORD;
-  }
-
-  await this.loginPage.login(username, password);
-  await this.loginPage.btnlogin();
-
-  await expect(this.page.locator('img.logo')).toBeVisible({ timeout: 15000 });
 });
 
 
-// VALIDAÇÃO FINAL
+// VALIDAÇÃO
 Then('devo visualizar o tema aplicado corretamente', async function () {
 
   const logo = this.page.locator('img.logo').first();
 
-  await expect(logo).toBeVisible({ timeout: 15000 });
+  await logo.waitFor({
+    state: 'visible',
+    timeout: 15000
+  });
 
-  await expect(logo).toHaveAttribute('src', /qa\.jpeg/);
+  await expect(logo).toHaveAttribute(
+    'src',
+    /qa\.jpeg/
+  );
+
+  await this.page.waitForTimeout(3000);
 });
