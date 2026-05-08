@@ -25,6 +25,10 @@ class HomePage {
   }
 
     //Diego
+    async gohome() {
+        await this.homeMenu.click()
+    }
+
     async goadm() {
         await this.admMenu.click()
     }
