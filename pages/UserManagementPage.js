@@ -35,8 +35,13 @@ class UserManagementPage {
 
     // SALVAR
     this.btnSalvar = this.page.locator('button[data-action="save"]');
-  }
 
+    // ACESSA USUARIO
+    this.alunoiterasys = this.page.locator('a[href*="/user/profile.php?id=64"]')
+
+    this.btnacessarcomo = this.page.getByRole('link', { name: 'Acessar como...' })
+  }
+  
   async acessarGerenciarUsuarios() {
 
   await this.page
@@ -97,6 +102,18 @@ class UserManagementPage {
 
     await this.modalEditar.waitFor({ state: 'hidden', timeout: 10000 });
   }
+
+  async selecionarusuario() {
+    await expect(this.alunoiterasys).toBeVisible()
+    await this.alunoiterasys.click()
+  }
+
+  async acessarcomo(){
+    await expect(this.btnacessarcomo).toBeVisible()
+    await this.btnacessarcomo.click()
+  }
+
+  
 
 
 }

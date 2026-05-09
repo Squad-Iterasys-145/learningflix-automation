@@ -6,12 +6,12 @@ const ThemePage = require('../../pages/ThemePage')
 
 
 Given('que estou logado como administrador', async function () {
-    this.usuarioAtual = 'adm'
+    this.usuarioAtual = 'cliente'
     this.loginPage = new LoginPage(this.page)
     await this.loginPage.navigate()
     await this.loginPage.login(
-        process.env.ADMIN_USERNAME,
-        process.env.ADMIN_PASSWORD
+        process.env.CLIENT_USERNAME,
+        process.env.CLIENT_PASSWORD
     )
     await this.loginPage.btnlogin()
 
