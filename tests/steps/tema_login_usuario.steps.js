@@ -111,9 +111,15 @@ When('clico no perfil', async function () {
 });
 
 When('realizo logout', async function () {
-  await this.page.getByRole('menuitem', { name: 'Sair' }).click();
-});
 
+  await this.page.getByRole('menuitem', {
+    name: 'Sair'
+  }).click();
+
+  await this.page.waitForLoadState('networkidle');
+
+  await this.page.waitForTimeout(2000);
+});
 
 // VALIDAÇÃO
 Then('devo visualizar o tema aplicado corretamente', async function () {
@@ -131,4 +137,16 @@ Then('devo visualizar o tema aplicado corretamente', async function () {
   );
 
   await this.page.waitForTimeout(3000);
+});
+
+Then('devo visualizar o logo do tema aplicado', async function () {
+
+  const logo = this.page.locator('img.logo').first();
+
+  await logo.waitFor({ state: 'visible', timeout: 15000 });
+  await expect(logo).toBeVisible();
+
+  const src = await logo.getAttribute('src');
+
+  expect(src).toMatch(/logoimagefile|pluginfile/);
 });
