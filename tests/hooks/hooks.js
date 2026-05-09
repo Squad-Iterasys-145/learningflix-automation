@@ -17,7 +17,14 @@ Before(async function () {
   });
   const context = await this.browser.newContext({
     locale: 'en-US',
-    storageState: undefined 
+    storageState: undefined,
+    ...(process.env.RECORD_VIDEO === 'true' && {
+        recordVideo: {
+            dir: 'reports/videos/',
+            size: { width: 1280, height: 720 }
+        }
+    })
+
   });
 
   this.page = await context.newPage();
