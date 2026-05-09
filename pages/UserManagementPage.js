@@ -55,16 +55,19 @@ class UserManagementPage {
   });
 }
 
-  async abrirEdicaoUsuario(nome) {
-    const btnEditar = this.btnEditarUsuario(nome);
+ async abrirEdicaoUsuario(username) {
 
-    await btnEditar.waitFor({ state: 'visible' });
-    await btnEditar.click();
+  const linhaUsuario = this.page.locator('tr', {
+    has: this.page.locator('td', { hasText: username })
+  });
 
-    await this.modalEditar.waitFor({ state: 'visible' });
+  const btnEditar = linhaUsuario.locator('a.btn-editform').first();
 
-    await this.page.waitForTimeout(1500);
-  }
+  await linhaUsuario.waitFor({ state: 'visible', timeout: 15000 });
+  await btnEditar.click();
+
+  await this.modalEditar.waitFor({ state: 'visible' });
+}
 
  async selecionarTema(nomeTema) {
 
@@ -94,6 +97,8 @@ class UserManagementPage {
 
     await this.modalEditar.waitFor({ state: 'hidden', timeout: 10000 });
   }
+
+
 }
 
 module.exports = UserManagementPage;

@@ -76,11 +76,27 @@ class PublicoAlvoPage {
  
   // ACESSO
   async acessarModulo() {
-    await this.menuPublico.waitFor({ state: 'visible' });
-    await this.menuPublico.scrollIntoViewIfNeeded();
-    await this.menuPublico.click();
-    await this.titulo.waitFor({ state: 'visible' });
-  }
+
+  // abre administração
+  await this.page
+    .locator('a.menu-admin[href*="client_admin.php"]')
+    .first()
+    .click();
+
+  await this.menuPublico.waitFor({
+    state: 'visible',
+    timeout: 15000
+  });
+
+  await this.menuPublico.scrollIntoViewIfNeeded();
+
+  await this.menuPublico.click();
+
+  await this.titulo.waitFor({
+    state: 'visible',
+    timeout: 15000
+  });
+}
 
   async clicarAdicionar() {
     await this.btnAdicionar.waitFor({ state: 'visible' });
@@ -285,6 +301,7 @@ async validarMensagemMinimoCaracteres() {
 
   await expect(msg.first()).toBeVisible({ timeout: 10000 });
 }
+
 
 }
 

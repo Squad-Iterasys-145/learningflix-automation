@@ -57,6 +57,10 @@ const ALUNOS = {
   aluno6: {
     username: process.env.ALUNO6_USERNAME,
     password: process.env.ALUNO6_PASSWORD
+  },
+  'Fulano Junior': {
+    username: process.env.ANALISTA_USERNAME, // analista.iterasys
+    password: process.env.ANALISTA_PASSWORD
   }
 };
 
