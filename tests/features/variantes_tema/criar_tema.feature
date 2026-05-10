@@ -17,3 +17,18 @@ Feature: Criar novo tema
     | usuario      |
     #| Administrador |
     | Administrador Cliente |
+
+
+  Scenario Outline: Tentar criar tema sem preencher o nome obrigatório
+    Given que estou logado como "<usuario>"
+    When acesso o Gerenciamento de Temas como "<usuario>"
+    And clico em Adicionar novo tema
+    And clico no botão Adicionar
+    And limpo o campo "Nome do tema"
+    And clico em Salvar mudanças
+    Then o sistema exibe a mensagem "Necessários"
+
+    Examples:
+    | usuario               |
+    | Administrador Cliente  |
+    # | Administrador       |
