@@ -9,6 +9,7 @@ class HomePage {
     this.themeInput = page.getByRole('combobox')
     this.btncancel = page.locator('[data-action="cancel"]')
     this.btnsave = page.locator('[data-action="save"]')
+    //this.direta = '/local/multithemes/#/'
 
     //Felipe
         // Admin (SELETOR ÚNICO E ESTÁVEL)
@@ -52,6 +53,14 @@ class HomePage {
     async admsite(){
         await this.admMenu.click()
     }
+
+    // async acessarUrlDireta(){
+    //     await this.page.goto(this.direta)
+    // }
+
+
+
+
     // Felipe
 
     // =========================
