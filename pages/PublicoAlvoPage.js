@@ -31,16 +31,6 @@ class PublicoAlvoPage {
       'a[title="Gerenciar membros do público-alvo"]'
     );
 
-    this.listaDisponivel = page
-     .locator('div.list-box-item')
-     .filter({ has: page.locator('.search-box') })
-     .locator('ul.list-box');
-
-    this.listaGrupo = page
-      .locator('div.list-box-item')
-      .filter({ has: page.locator('.bulk-action') })
-      .locator('ul.list-box');
-
     this.containerAcoes = this.page.locator('div.actions');
 
     this.usuarioNoGrupo = (nome) =>
@@ -59,21 +49,29 @@ class PublicoAlvoPage {
     .locator('button')
     .nth(2);
 
-    //  INPUT BUSCA (corrigido)
-    this.inputBuscaUsuario = page
-      .locator('input[placeholder="Pesquisar"]')
-      .first();
-  
   
     // BUSCA
     this.inputBuscaPublico = this.page
       .locator('label:has-text("Pesquisar") input[type="search"]')
       .first();
     this.linhasTabela = this.page.locator('table tbody tr');
-  
+
+    // LISTBOX DA ESQUERDA → GRUPO
+    this.listaGrupo = page
+      .locator('div.list-box-item')
+      .nth(0);
+
+    // LISTBOX DA DIREITA → USUÁRIOS DISPONÍVEIS
+    this.listaDisponivel = page
+      .locator('div.list-box-item')
+      .nth(1);
+
+    // INPUT DE BUSCA DA DIREITA
+    this.inputBuscaUsuario = this.listaDisponivel
+      .locator('input[placeholder="Pesquisar"]');
+
     }
 
- 
   // ACESSO
   async acessarModulo() {
 

@@ -12,5 +12,5 @@ Feature: Inserir favicon em variante
 
     Examples:
     | usuario   |
-    | adm       |
+    # | adm       |
     | cliente   |

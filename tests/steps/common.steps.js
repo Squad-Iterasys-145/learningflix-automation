@@ -6,8 +6,7 @@ const ThemePage = require('../../pages/ThemePage')
 
 Given('que estou logado como {string}', async function (usuario) {
     this.usuarioAtual = usuario // Guarda o tipo de usuário para usar depois
-
-    this.usuarioAtual = usuario
+    
     this.loginPage = new LoginPage(this.page)
     await this.loginPage.navigate()
 
@@ -23,7 +22,7 @@ Given('que estou logado como {string}', async function (usuario) {
 
     await this.loginPage.login(username, password)
     await this.loginPage.btnlogin()
-     await this.page.waitForURL('**/my/**', { timeout: 30000 }) // ← Adicionado porque a página estava fechando inesperadamente
+    await this.page.waitForURL('**/my/**', { timeout: 5000 }) // ← Adicionado porque a página estava fechando inesperadamente
     await this.page.waitForLoadState('networkidle')
 });
 
