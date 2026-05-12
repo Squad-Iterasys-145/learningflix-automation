@@ -1,8 +1,6 @@
 const { When, Then } = require('@cucumber/cucumber');
 const { expect } = require('@playwright/test');
 
-const VALIDAR_REMOCAO = false;
-
 // REMOVER USUÁRIO
 When('removo o usuário {string}', async function (nomeUsuario) {
 
@@ -12,15 +10,26 @@ When('removo o usuário {string}', async function (nomeUsuario) {
   await this.page.waitForTimeout(1500);
 });
 
-// VALIDAÇÃO (DESLIGÁVEL)
+
+// VALIDAR REMOÇÃO
 Then('o usuário {string} não deve estar no grupo', async function (nomeUsuario) {
 
-  if (!VALIDAR_REMOCAO) {
-    console.log(`Validação de remoção desativada para: ${nomeUsuario}`);
-    return;
-  }
+  // VALIDA QUE NÃO ESTÁ MAIS NO GRUPO
+  const usuarioGrupo = this.publicoPage.listaGrupo
+    .locator('li.list-item', { hasText: nomeUsuario });
 
-  const usuario = this.publicoPage.usuarioNoGrupo(nomeUsuario);
+  await expect(usuarioGrupo).toHaveCount(0);
 
-  await expect(usuario).toHaveCount(0);
+  // PESQUISA NA LISTA DISPONÍVEL
+  const inputBusca = this.publicoPage.inputBuscaUsuario;
+
+  await inputBusca.fill(nomeUsuario);
+
+  await this.page.waitForTimeout(1000);
+
+  // VALIDA QUE VOLTOU PARA DISPONÍVEIS
+  const usuarioDisponivel = this.publicoPage.listaDisponivel
+    .locator('li.list-item', { hasText: nomeUsuario });
+
+  await expect(usuarioDisponivel).toBeVisible();
 });

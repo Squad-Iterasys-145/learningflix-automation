@@ -6,7 +6,7 @@ class ThemePage {
         this.botaoOpcoesDoTema = (nome) => this.containerTema(nome).locator('#dropdownMenuButton')
         this.linkVisualizar = page.getByRole('menuitem', {name: 'Pré-visualizar'})
         this.linkEditar = page.getByRole('menuitem', { name: 'Editar' })
-        this.linkInativar = page.getByRole('menuitem', { name: 'Inativas' })
+        this.linkInativar = page.getByRole('menuitem', { name: 'Inativar' })
         this.linkExluir = page. getByRole('menuitem', { name: 'Excluir' })
 
         // Upload Logo
@@ -21,6 +21,11 @@ class ThemePage {
         // Salvar Tema
         this.botaoSalvarTema = page.locator('button.btn-primary:has-text("Salvar")')
 
+        // Erro via acessar direto
+        this.errorMsg = page.locator('p.errormessage')
+
+        // Botão Continuar (Volta para Home)
+        this.btnContinuar = page.getByRole('button', {name:'Continuar'})
 
     }
 
@@ -117,6 +122,14 @@ class ThemePage {
 
     await this.page.getByRole('button', { name: 'OK' }).click()
     await this.page.waitForLoadState('networkidle')
+    }
+
+    async validarMsgErro() {
+        return await this.errorMsg.textContent()
+    }
+
+    async clicarBtnContinuar(){
+        await this.btnContinuar.click()
     }
 
 

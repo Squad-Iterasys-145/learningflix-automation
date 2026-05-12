@@ -13,13 +13,11 @@ Then('o logo é salvo com sucesso', async function () {
     //acessar o tema bucar pelo upload e deletar o arquivo
     await this.page.waitForLoadState('networkidle')
     const nomeTema =
-      this.usuarioAtual === 'admin'
+      this.usuarioAtual === 'adm'
         ? 'AdminLogo'
         : 'ClienteLogo'
     await this.page.waitForLoadState('networkidle')
     await this.themePage.acessarEdicaoVariante(nomeTema)
-
     await this.themePage.removerLogo()
-
     await this.themePage.salvarConfiguracoes()
 })

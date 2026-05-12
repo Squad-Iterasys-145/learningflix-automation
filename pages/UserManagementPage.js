@@ -113,7 +113,20 @@ class UserManagementPage {
     await this.btnacessarcomo.click()
   }
 
-  
+ async inativarUsuario(nomeUsuario) {
+
+  const botaoInativar = this.page.locator(
+    `tr:has-text("${nomeUsuario}") a[title="Suspender conta de usuário"]`
+  );
+
+  await botaoInativar.click();
+
+  // espera botão desaparecer ou linha atualizar
+  await this.page.waitForTimeout(1500);
+
+  // opcional: garantir que ainda está na tela
+  await this.page.waitForLoadState('domcontentloaded');
+}
 }
 
 module.exports = UserManagementPage;

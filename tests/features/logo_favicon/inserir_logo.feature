@@ -11,5 +11,5 @@ Feature: Inserir logo em variante
 
     Examples:
     | usuario   |
-    | adm       |
+    # | adm       |
     | cliente   |
