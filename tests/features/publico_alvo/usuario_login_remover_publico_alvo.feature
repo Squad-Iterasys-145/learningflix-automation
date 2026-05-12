@@ -1,4 +1,4 @@
-@publico_alvo @usuario_login_negativo_publico_alvo 
+@publico_alvo @usuario_login_remover_publico_alvo 
 
 Feature: Remoção de usuário do público-alvo e validação de acesso
 
